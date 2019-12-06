@@ -1,0 +1,28 @@
+@model CategoryView
+
+<h1 class="text-center"><a asp-action="ProductView" asp-controller="ProductCategory">Products</a> | Categories</a></h1>
+
+<div class="container">
+  <div class="modal-body row">
+    <div class="col-md-6">
+      <form asp-action="NewCategory" asp-controller="ProductCategory">
+        <div class="form-group">
+          <label asp-for="category.CategoryName"></label>
+          <input asp-for="category.CategoryName" class="form-control">
+          <span asp-validation-for="category.CategoryName" class="text-danger"></span>
+        </div>
+        <button type="submit"class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <ul>
+      @foreach (var category in Model.allcategories)
+      {
+        <p><a asp-action="OneCategoryView" asp-controller="ProductCategory" asp-route-categoryid="@category.CategoryId">@category.CategoryName</a></p>
+      }
+      </ul>
+    </div>
+  </div>
+</div>
+
+<a asp-action="Logout" asp-controller="User" class="btn btn-primary">Logout</a>

@@ -1,0 +1,32 @@
+@model OneCategoryView
+
+<h1 class="text-center">@Model.category.CategoryName</h1>
+<div class="container">
+  <div class="modal-body row">
+    <div class="col-md-6">
+      <h3>Products: </h3>
+      <ul>
+      @foreach (var product in Model.productsIncluded)
+      {
+        <li>@product.ProductName</li>
+      }
+      </ul>
+    </div>
+      <form asp-action="NewProductForCategory" asp-controller="ProductCategory" method="post">
+        <div class="form-group">
+          <select class="form-control" asp-for="ProductCategory.Product.ProductId">
+            @foreach(var product in Model.productsExcluded)
+            {
+              <option value="@product.ProductId">@product.ProductName</option>
+            }
+            <input asp-for="ProductCategory.Category.CategoryId" value="@Model.category.CategoryId" type="hidden">
+          </select>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    <div class="col-md-6">
+    </div>
+  </div>
+</div>
+
+<a asp-action="CategoryView" asp-controller="ProductCategory" class="btn btn-info">Back To Categories</a>
